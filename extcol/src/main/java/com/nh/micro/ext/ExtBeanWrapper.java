@@ -1,6 +1,5 @@
 package com.nh.micro.ext;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import com.alibaba.fastjson.JSON;
@@ -35,8 +34,12 @@ public class ExtBeanWrapper {
 		if (entity == null) {
 			innerMap = null;
 		}
-		JSON jobj = (JSON) JSON.toJSON(entity);
-		innerMap = JSON.toJavaObject(jobj, Map.class);
+		if (entity instanceof Map) {
+			innerMap = (Map) entity;
+		} else {
+			JSON jobj = (JSON) JSON.toJSON(entity);
+			innerMap = JSON.toJavaObject(jobj, Map.class);
+		}
 	}
 
 	public Object getObj() {
