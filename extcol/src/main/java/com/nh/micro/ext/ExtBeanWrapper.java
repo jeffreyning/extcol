@@ -9,8 +9,8 @@ import com.alibaba.fastjson.JSON;
  * 
  * @Description:
  * @Author: ninghao
- * @Date: 2019年3月4日
- * @Version: 1.0
+ * @Date: 2020年8月11日
+ * @Version: 2.0
  */
 public class ExtBeanWrapper {
 
@@ -20,7 +20,16 @@ public class ExtBeanWrapper {
 	public ExtBeanWrapper(Object entity) {
 		this.setObj(entity);
 	}
+	private boolean ignoreNull=true;
+	
 
+	public boolean getIgnoreNull() {
+		return ignoreNull;
+	}
+
+	public void setIgnoreNull(boolean ignoreNull) {
+		this.ignoreNull = ignoreNull;
+	}
 	private Map innerMap = new HashMap();
 
 	public Map getInnerMap() {

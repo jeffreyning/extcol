@@ -12,9 +12,16 @@ import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.nh.micro.ext.ExtBeanWrapper;
 
-
+/**
+ * 
+ * @Description:
+ * @Author: ninghao
+ * @Date: 2020年8月11日
+ * @Version: 2.0
+ */
 @MappedTypes(com.nh.micro.ext.ExtBeanWrapper.class)
 @MappedJdbcTypes(JdbcType.VARCHAR)
 public class TagToJsonTypeHandler extends BaseTypeHandler<ExtBeanWrapper> {
@@ -30,7 +37,11 @@ public class TagToJsonTypeHandler extends BaseTypeHandler<ExtBeanWrapper> {
 	@Override
 	public void setNonNullParameter(PreparedStatement ps, int i, ExtBeanWrapper parameter, JdbcType jdbcType)
 			throws SQLException {
+		if(parameter.getIgnoreNull()){
 			ps.setString(i, JSON.toJSONString(parameter.getInnerMap()));
+		}else{
+			ps.setString(i, JSON.toJSONString(parameter.getInnerMap(),SerializerFeature.WriteMapNullValue));
+		}
 	}
 
 	public boolean isJson(String value){
