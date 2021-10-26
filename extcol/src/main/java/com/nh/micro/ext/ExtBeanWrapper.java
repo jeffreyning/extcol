@@ -52,12 +52,11 @@ public class ExtBeanWrapper {
         return json;
     }
 
-    public Object getObj(Class targetClass) {
+    public <T> T getObj(Class<T> targetClass) {
         if (json == null) {
             return null;
         }
-        Object entity = JSON.toJavaObject(json, targetClass);
-        return entity;
+        return JSON.toJavaObject(json, targetClass);
     }
 
     public <T> T getObj(TypeReference<T> type) {
