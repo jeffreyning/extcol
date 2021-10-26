@@ -2,6 +2,7 @@ package com.nh.micro.ext;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 
 /**
  * @author ninghao
@@ -57,6 +58,10 @@ public class ExtBeanWrapper {
         }
         Object entity = JSON.toJavaObject(json, targetClass);
         return entity;
+    }
+
+    public <T> T getObj(TypeReference<T> type) {
+        return JSON.parseObject(json.toJSONString(), type);
     }
 
 }
