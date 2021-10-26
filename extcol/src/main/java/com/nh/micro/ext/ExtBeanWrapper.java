@@ -1,69 +1,62 @@
 package com.nh.micro.ext;
 
 
-import java.util.HashMap;
-import java.util.Map;
 import com.alibaba.fastjson.JSON;
 
 /**
- * 
- * @Description:
- * @Author: ninghao
- * @Date: 2020年8月11日
- * @Version: 2.0
+ * @author ninghao
+ * @version 2.0
  */
 public class ExtBeanWrapper {
 
-	public ExtBeanWrapper() {
-	};
+    public ExtBeanWrapper() {
+    }
 
-	public ExtBeanWrapper(Object entity) {
-		this.setObj(entity);
-	}
-	private boolean ignoreNull=true;
-	
+    public ExtBeanWrapper(Object entity) {
+        this.setObj(entity);
+    }
 
-	public boolean getIgnoreNull() {
-		return ignoreNull;
-	}
+    private boolean ignoreNull = true;
 
-	public void setIgnoreNull(boolean ignoreNull) {
-		this.ignoreNull = ignoreNull;
-	}
-	private Map innerMap = new HashMap();
 
-	public Map getInnerMap() {
-		return innerMap;
-	}
+    public boolean getIgnoreNull() {
+        return ignoreNull;
+    }
 
-	public void setInnerMap(Map innerMap) {
-		this.innerMap = innerMap;
-	}
+    public void setIgnoreNull(boolean ignoreNull) {
+        this.ignoreNull = ignoreNull;
+    }
 
-	public void setObj(Object entity) {
-		if (entity == null) {
-			innerMap = null;
-		}
-		JSON jobj = (JSON) JSON.toJSON(entity);
-		innerMap = JSON.toJavaObject(jobj, Map.class);
-	}
+    private JSON json;
 
-	public Object getObj() {
-		if (innerMap == null) {
-			return null;
-		}
-		JSON jobj = (JSON) JSON.toJSON(innerMap);
-		Map entity = JSON.toJavaObject(jobj, Map.class);
-		return entity;
-	}
+    public JSON getJson() {
+        return json;
+    }
 
-	public Object getObj(Class targetClass) {
-		if (innerMap == null) {
-			return null;
-		}
-		JSON jobj = (JSON) JSON.toJSON(innerMap);
-		Object entity = JSON.toJavaObject(jobj, targetClass);
-		return entity;
-	}
+    public void setJson(JSON json) {
+        this.json = json;
+    }
+
+    public void setObj(Object entity) {
+        if (entity == null) {
+            json = null;
+        }
+        json = (JSON) JSON.toJSON(entity);
+    }
+
+    public Object getObj() {
+        if (json == null) {
+            return null;
+        }
+        return json;
+    }
+
+    public Object getObj(Class targetClass) {
+        if (json == null) {
+            return null;
+        }
+        Object entity = JSON.toJavaObject(json, targetClass);
+        return entity;
+    }
 
 }
