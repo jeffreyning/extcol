@@ -17,10 +17,7 @@ import com.nh.micro.ext.ExtBeanWrapper;
 
 /**
  * 
- * @Description:
- * @Author: ninghao
- * @Date: 2020年8月11日
- * @Version: 2.0
+ * ninghao
  */
 @MappedTypes(com.nh.micro.ext.ExtBeanWrapper.class)
 @MappedJdbcTypes(JdbcType.VARCHAR)

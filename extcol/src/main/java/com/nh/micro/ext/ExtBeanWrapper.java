@@ -4,13 +4,11 @@ package com.nh.micro.ext;
 import java.util.HashMap;
 import java.util.Map;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 
 /**
  * 
- * @Description:
- * @Author: ninghao
- * @Date: 2020年8月11日
- * @Version: 2.0
+ *  ninghao
  */
 public class ExtBeanWrapper {
 
@@ -57,13 +55,16 @@ public class ExtBeanWrapper {
 		return entity;
 	}
 
-	public Object getObj(Class targetClass) {
+	public <T> T getObj(Class<T> targetClass){
 		if (innerMap == null) {
 			return null;
 		}
 		JSON jobj = (JSON) JSON.toJSON(innerMap);
-		Object entity = JSON.toJavaObject(jobj, targetClass);
+		T entity = JSON.toJavaObject(jobj, targetClass);
 		return entity;
 	}
-
+	public <T> T getObj(TypeReference<T> type) {
+		JSON jobj = (JSON) JSON.toJSON(innerMap);
+		return JSON.parseObject(jobj.toJSONString(), type);
+	}
 }
