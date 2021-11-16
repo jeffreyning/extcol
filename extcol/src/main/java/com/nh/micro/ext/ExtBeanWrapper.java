@@ -62,5 +62,4 @@ public class ExtBeanWrapper {
     public <T> T getObj(TypeReference<T> type) {
         return JSON.parseObject(json.toJSONString(), type);
     }
-
 }

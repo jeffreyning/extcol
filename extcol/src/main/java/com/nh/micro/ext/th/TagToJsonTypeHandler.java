@@ -14,8 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @author ninghao
- * @version 2.0
+ * 
+ * ninghao
  */
 @MappedTypes(com.nh.micro.ext.ExtBeanWrapper.class)
 @MappedJdbcTypes(JdbcType.VARCHAR)

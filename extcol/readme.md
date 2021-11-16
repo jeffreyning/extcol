@@ -1,0 +1,25 @@
+以前当业务数据结构变化时，往往需要采用的方案是：
+修改表结构增加字段
+遇到数据结构有list结构时，新建1对多的关联子表
+用字典表表示字段的增加
+以上方案对代码侵入性很强，同时与旧业务数据结构不兼容。导致代码从实体类、Dao、Service、Controller层都要修改。
+
+随着NOSQL数据库的广泛应用，可扩展的存储方式在关系型数据库中也有了很好的支持，最新的MySQL5.7中就新增加了一个数据类型JSON，使用mysql的json类型字段做扩展字段，可以以json串形式动态的存储任意结构的数据，包括list结构的数据也不必再创建子表。代码的实体类和Dao层不必修改，其他层代码修改量也能够减少。
+原文链接：https://blog.csdn.net/thethefighter/article/details/89709317
+
+**Mybatis深度整合Json字段**
+实现bean与json串在mybatis内部转换，这样做的优点是dao层代码和sql不变，service层可以增删改查不同的动态Entity对象。更符合面向对象编程习惯提高开发效率。
+Extcol包中TypeHandler子类TagToJsonTypeHandler 实现mybatis在数据库操作过程中的参数输入和结果转换的拦截。拦截父类为ExtBeanWrapper的对象。
+使TagToJsonTypeHandler生效需要配置mybatis.typeHandlersPackage(如果使用mybatisplus，则配置mybatis-plus.typeHandlersPackage)
+Extcol包中ExtBeanWrapper类，作为json对象转换的目标对象，内有map成员变量(innerMap)保存实际数据,getobj和setobj方法是使用fastjson做对象与map的转换。
+
+
+Extcol开源项目实现Mybatis与mysql的json字段深度整合
+项目地址为：
+https://github.com/jeffreyning/extcol.git
+
+感谢网友
+Fengxq2014的提示
+0.0.3版增加了方法，实现对list中对象动态且准确的转换
+
+`public <T> T getObj(TypeReference<T> type)`
